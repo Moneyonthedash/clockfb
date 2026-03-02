@@ -1,0 +1,8 @@
+{
+  "name": "cloackfb",
+  "version": "1.0.0",
+  "description": "Redirecionador de alta performance para Vercel Edge",
+  "scripts": {
+    "start": "node api/index.js"
+  }
+}
