@@ -1,4 +1,6 @@
-
+export const config = {
+  runtime: 'edge', // ISSO garante o redirecionamento ultra rápido na borda
+};
 
 export default function handler(req, res) {
   const userAgent = req.headers['user-agent'] || '';
